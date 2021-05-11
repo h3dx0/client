@@ -22,12 +22,14 @@
         <label for="qty">Quiero</label>
 
         <div class="buy-info">
-          <select name="qty" id="qty" class="form-control">
+          <select name="qty" id="qty" class="form-control" v-model="qty">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
           </select>
-          <button class="btn btn-outline-info">Agregar al carro</button>
+          <button class="btn btn-outline-info" @click="onAddProduct()">
+            Agregar al carro
+          </button>
           <button class="btn btn-success">Comprar YA</button>
         </div>
       </div>
@@ -40,12 +42,21 @@
 import { mapGetters } from "vuex";
 export default {
   data() {
-    return { products: [] };
+    return { products: [], qty: 1 };
   },
   computed: {
     product() {
       const productId = this.$route.params.id;
       return this.$store.getters.getProductById(productId);
+    },
+  },
+  methods: {
+    onAddProduct() {
+      const newProductOrder = {
+        product: this.product,
+        qty: this.qty,
+      };
+      this.$store.dispatch("updateOrder", newProductOrder);
     },
   },
 };

@@ -21,7 +21,7 @@
     </div>
     <div class="">
       <div class="row">
-        <div class="col-6 mx-auto text-center">
+        <!-- <div class="col-6 mx-auto text-center">
           <h2><strong>Bienvenido a DEVTHINGS</strong></h2>
           <p>
             <b
@@ -42,9 +42,9 @@
             <a href="http://robertonunezc.com" target="_blank"> aquí.</a>
           </p>
           <hr />
-        </div>
+        </div> -->
         <div class="col-12">
-          <h1 class="text-center text-bold mb-5 mt-5">Productos</h1>
+          <h1 class="text-center text-bold mb-5">Productos</h1>
         </div>
         <div class="col-md-3" v-for="product in products" :key="product.code">
           <div class="card">
@@ -56,10 +56,13 @@
             <div class="card-body">
               <h5 class="card-title">{{ product.name }}</h5>
               <p class="card-text">${{ product.price }}</p>
+              <button class="btn btn-success" @click="addProduct(product.id)">
+                La quiero
+              </button>
               <nuxt-link
-                class="btn btn-success"
+                class="btn btn-outline-primary"
                 :to="{ name: 'products-id', params: { id: product.id } }"
-                >La quiero</nuxt-link
+                >Detalles</nuxt-link
               >
             </div>
           </div>
@@ -82,6 +85,11 @@ export default {
   },
   created() {
     this.$store.dispatch("getProducts");
+  },
+  methods: {
+    addProduct(productId) {
+      this.$store.commit("setProductOrder", { id: productId, qty: 1 });
+    },
   },
 };
 </script>

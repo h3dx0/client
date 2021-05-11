@@ -6,7 +6,9 @@
       <b-navbar-brand>DevThings</b-navbar-brand>
 
       <b-navbar-nav is-nav class="ml-auto">
-        <b-nav-item href="/">Inicio</b-nav-item>
+        <nuxt-link :to="{ name: 'order' }"
+          >Carrito: ${{ order.total }}</nuxt-link
+        >
       </b-navbar-nav>
     </b-navbar>
     <nuxt />
@@ -17,6 +19,20 @@
     </div>
   </b-container>
 </template>
+
+<script>
+export default {
+  name: "Layout",
+  data() {
+    return {};
+  },
+  computed: {
+    order() {
+      return this.$store.state.order;
+    },
+  },
+};
+</script>
 
 <style>
 html {
